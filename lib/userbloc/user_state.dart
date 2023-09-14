@@ -1,0 +1,29 @@
+import 'package:equatable/equatable.dart';
+
+import '../model/userModel.dart';
+
+abstract class UserState extends Equatable {
+}
+
+//data loading state
+class UserLoadingState extends UserState {
+  @override
+  List<Object?> get props => [];
+}
+
+class UserLoadedState extends UserState {
+
+  final List<UserModel> users;
+
+  UserLoadedState(this.users);
+
+  List<Object?> get props => [users];
+}
+
+class UserErrorState extends UserState {
+  final String error;
+
+  UserErrorState(this.error);
+
+  List<Object?> get props => [error];
+}

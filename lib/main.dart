@@ -1,13 +1,38 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:webapp/bloc/internetbloc/internet_bloc.dart';
+import 'package:webapp/bloc/internetbloc/internet_state.dart';
+import 'package:webapp/repo/repositories.dart';
+import 'package:webapp/userbloc/homepage.dart';
+import 'package:webapp/userbloc/user_bloc.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_flutter_android/webview_flutter_android.dart';
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 
-void main() => runApp(const MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: WebViewExample()));
+void main() {
+  runApp(const MainApp());
+}
+
+class MainApp extends StatelessWidget {
+  const MainApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<UserBloc>(
+          create: (BuildContext context) => UserBloc(UserRepository()),
+        ),
+        BlocProvider(
+          create: (BuildContext context) => InternetBloc(),
+        ),
+      ],
+      child: const MaterialApp(
+          debugShowCheckedModeBanner: false, home: WebViewExample()),
+    );
+  }
+}
 
 class WebViewExample extends StatefulWidget {
   const WebViewExample({super.key});
@@ -61,7 +86,6 @@ Page resource error:
   isForMainFrame: ${error.isForMainFrame}
           ''');
           },
-
           onUrlChange: (UrlChange change) {
             debugPrint('url change to ${change.url}');
           },
@@ -92,8 +116,18 @@ Page resource error:
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.green,
-    
-      body: SafeArea(child: WebViewWidget(controller: _controller)),
+      body: SafeArea(child: BlocBuilder<InternetBloc, InternetState>(
+        builder: (context, state) {
+          if (state is InternetGainedState) {
+            return HomePage();
+            // return WebViewWidget(controller: _controller);
+          } else if (state is InternetLostState) {
+            return Text("Not Connected");
+          } else {
+            return Text("Loading...");
+          }
+        },
+      )),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -109,21 +143,10 @@ Page resource error:
             label: 'Profile',
           ),
         ],
-        currentIndex:0,
+        currentIndex: 0,
         selectedItemColor: Colors.blue[800],
-        onTap: (value) {
-
-        },
+        onTap: (value) {},
       ),
-
     );
   }
-
-
 }
-
-
-
-
-
-
