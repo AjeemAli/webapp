@@ -11,24 +11,30 @@ class RoundedButton extends StatelessWidget {
     return Center(
       child: InkWell(
         onTap: onTap,
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            gradient: const LinearGradient(
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-              colors: [Colors.green, Colors.amber],
+        child: Card(
+          elevation: 5,
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              gradient: const LinearGradient(
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+                colors: [Colors.green, Colors.amber],
+              ),
+            ),
+            height: 100,
+            width: 100,
+            child: Center(
+              child: Text(
+                text,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+              ),
             ),
           ),
-          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-          height: 50,
-          width: MediaQuery.of(context).size.width * 0.90,
-          child: Center(
-              child: Text(
-            text,
-            style: const TextStyle(
-                fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
-          )),
         ),
       ),
     );

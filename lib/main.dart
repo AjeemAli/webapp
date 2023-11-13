@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:webapp/screen/adhan/prayer_time.dart';
 import 'package:webapp/screen/splash%20screen.dart';
 
 void main() {
@@ -16,7 +17,7 @@ class MainApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
       ),
-      home: const SplashScreen(),
+      home: SplashScreen(),
     );
   }
 }
