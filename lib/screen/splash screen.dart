@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:webapp/screen/home/home_screen.dart';
+
+import '../model/clock_model.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -17,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   _navigateToHome() async {
     await Future.delayed(
-        Duration(seconds: 10)); // Splash screen duration (2 seconds)
+        Duration(seconds: 2)); // Splash screen duration (2 seconds)
     Navigator.of(context)
         .pushReplacement(MaterialPageRoute(builder: (context) => HomeScreen()));
   }
@@ -30,6 +33,16 @@ class _SplashScreenState extends State<SplashScreen> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Center(
+            child: Consumer<ClockModel>(
+              builder: (context, clockModel, child) {
+                return Text(
+                  clockModel.currentTime,
+                  style: TextStyle(fontSize: 40),
+                );
+              },
+            ),
+          ),
           Center(
             child: Container(
               height: MediaQuery.of(context).size.height * 0.1,

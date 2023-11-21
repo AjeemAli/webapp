@@ -40,6 +40,7 @@ dependencies:
   internet_connection_checker:
   connectivity_plus:
   intl:
+  provider:
 
   adhan: ^2.0.0+1
   shared_preferences:
