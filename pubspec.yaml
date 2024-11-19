@@ -36,14 +36,13 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   google_fonts: ^6.1.0
-  internet_connection_checker_plus: ^2.1.0
-  internet_connection_checker:
-  connectivity_plus:
-  intl:
-  provider:
+  get: ^4.6.6
+  firebase_core:
+  cloud_firestore:
+  firebase_auth:
+  firebase_storage:
+  firebase_messaging:
 
-  adhan: ^2.0.0+1
-  shared_preferences:
 
 
 dev_dependencies:

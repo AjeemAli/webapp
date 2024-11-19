@@ -1,29 +1,28 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:webapp/screen/adhan/prayer_time.dart';
-import 'package:webapp/screen/splash%20screen.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:webapp/config/app_theme.dart';
 
-import 'model/clock_model.dart';
+import 'config/routes.dart';
 
-void main() {
-  runApp(const MainApp());
+void main() async {
+  // WidgetsFlutterBinding.ensureInitialized();
+  // await Firebase.initializeApp();
+  // FirebaseFirestore.instance.settings =
+  //     const Settings(persistenceEnabled: true);
+  runApp(MyApp());
 }
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
-
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => ClockModel(),
-      child: MaterialApp(
-        title: 'Reading App',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          useMaterial3: true,
-        ),
-        home: SplashScreen(),
-      ),
+    return MaterialApp(
+      title: 'Surah Yaseen App',
+      theme: AppTheme.lightTheme(),
+      darkTheme: AppTheme.darkTheme(),
+      themeMode: ThemeMode.system,
+      onGenerateRoute: RouteConfig.generateRoute,
+      initialRoute: RouteConfig.splash,
     );
   }
 }
